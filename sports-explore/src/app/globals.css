@@ -1,0 +1,109 @@
+/* Google Fonts Import */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+Pro:wght@400;600&display=swap");
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+}
+
+/* Reset default browser spacing */
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #ffffff; /* background */
+  color: #475569; /* foreground */
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 300px) {
+  .dashboard-grid {
+    gap: 0.75rem;
+  }
+}
+
+/* Session Card */
+.session-card {
+  background: #ecfeff; /* card */
+  color: #374151; /* card-foreground */
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.session-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Navbar */
+.navbar {
+  background: #164e63; /* primary */
+  color: #ffffff; /* primary-foreground */
+  border: none;
+  position: sticky;
+  top: -100px;
+  z-index: 100;
+}
+
+/* Primary Button */
+.btn-primary {
+  background: #164e63; /* primary */
+  color: #ffffff; /* primary-foreground */
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: #d97706; /* secondary */
+}
+
+/* Accent Button */
+.btn-accent {
+  background: #f59e0b; /* accent */
+  color: #ffffff; /* accent-foreground */
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-accent:hover {
+  opacity: 0.9;
+}
+
+/* Destructive Button */
+.btn-destructive {
+  background: #dc2626; /* destructive */
+  color: #ffffff; /* destructive-foreground */
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-destructive:hover {
+  opacity: 0.9;
+}
