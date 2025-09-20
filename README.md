@@ -37,8 +37,6 @@ A simple web application to manage sports sessions, allowing users to create, jo
 ## How to Run
 
 1. Navigate to the frontend folder:
-
-```bash
 cd Frontend
      2.Install dependencies:                                                                                                                                    npm install 
         3.Run the development server:                                                                                                                           npm run dev 
