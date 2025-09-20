@@ -22,7 +22,6 @@ export default function Navbar({
     maxParticipants: 10,
   });
 
-  // Fetch sports from backend
   const fetchSports = async () => {
     try {
       const res = await fetch("http://localhost:8080/sports", {
@@ -53,7 +52,7 @@ export default function Navbar({
         setToast({ type: "error", message: "Failed to logout" });
       }
     } catch (err) {
-      console.error("Error logging out:", err);
+      console.error(err);
       setToast({ type: "error", message: "Error logging out" });
     }
   };
@@ -95,61 +94,26 @@ export default function Navbar({
 
   return (
     <nav className="navbar">
-      <div
-        style={{
-          maxWidth: "1200px",
-          margin: "0 auto",
-          padding: "0 1rem",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          height: "4rem",
-        }}
-      >
-        <div
-          style={{
-            fontFamily: "Playfair Display, serif",
-            fontSize: "1.5rem",
-            fontWeight: "700",
-          }}
-        >
-          Sports Management
-        </div>
+      <div className="navbar-container">
+        <div className="navbar-brand">Sports Management</div>
 
         {/* Desktop Navigation */}
-        <div
-          style={{ display: "flex", alignItems: "center", gap: "1rem" }}
-          className="hidden-mobile"
-        >
-          <span
-            style={{
-              fontFamily: "Source Sans Pro, sans-serif",
-              fontSize: "0.9rem",
-            }}
-          >
+        <div className="navbar-links hidden-mobile">
+          <span className="navbar-user">
             Welcome, {currentUser} ({currentUserRole})
           </span>
           {currentUserRole?.toLowerCase() === "admin" && (
             <button
               className="btn-accent"
               onClick={() => setIsAddSportModalOpen(true)}
-              style={{ fontSize: "0.9rem" }}
             >
               Add Sport
             </button>
           )}
-          <button
-            className="btn-accent"
-            onClick={() => setIsModalOpen(true)}
-            style={{ fontSize: "0.9rem" }}
-          >
+          <button className="btn-accent" onClick={() => setIsModalOpen(true)}>
             Create Session
           </button>
-          <button
-            className="btn-accent"
-            onClick={handleLogout}
-            style={{ fontSize: "0.9rem" }}
-          >
+          <button className="btn-accent" onClick={handleLogout}>
             Logout
           </button>
         </div>
@@ -158,14 +122,6 @@ export default function Navbar({
         <button
           className="mobile-menu-btn"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          style={{
-            display: "none",
-            background: "transparent",
-            border: "none",
-            color: "var(--primary-foreground)",
-            fontSize: "1.5rem",
-            cursor: "pointer",
-          }}
         >
           ☰
         </button>
@@ -173,29 +129,9 @@ export default function Navbar({
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div
-          className="mobile-menu"
-          style={{
-            background: "var(--primary)",
-            borderTop: "1px solid var(--primary-foreground)",
-            padding: "1rem",
-            display: "none",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "1rem",
-              alignItems: "center",
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "Source Sans Pro, sans-serif",
-                fontSize: "0.9rem",
-              }}
-            >
+        <div className="mobile-menu">
+          <div className="mobile-menu-items">
+            <span className="navbar-user">
               Welcome, {currentUser} ({currentUserRole})
             </span>
 
@@ -203,24 +139,15 @@ export default function Navbar({
               <button
                 className="btn-accent"
                 onClick={() => setIsAddSportModalOpen(true)}
-                style={{ fontSize: "0.9rem" }}
               >
                 Add Sport
               </button>
             )}
 
-            <button
-              className="btn-accent"
-              onClick={() => setIsModalOpen(true)}
-              style={{ fontSize: "0.9rem" }}
-            >
+            <button className="btn-accent" onClick={() => setIsModalOpen(true)}>
               Create Session
             </button>
-            <button
-              className="btn-accent"
-              onClick={handleLogout}
-              style={{ fontSize: "0.9rem" }}
-            >
+            <button className="btn-accent" onClick={handleLogout}>
               Logout
             </button>
           </div>
@@ -229,50 +156,11 @@ export default function Navbar({
 
       {/* Modal for Creating Session */}
       {isModalOpen && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            background: "rgba(0,0,0,0.5)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 50,
-          }}
-        >
-          <div
-            style={{
-              background: "#fff",
-              borderRadius: "12px",
-              padding: "2rem",
-              width: "400px",
-              maxWidth: "90%",
-              boxShadow: "0 10px 25px rgba(0,0,0,0.2)",
-            }}
-          >
-            <h2
-              style={{
-                fontFamily: "Playfair Display, serif",
-                fontSize: "1.75rem",
-                marginBottom: "1.5rem",
-                textAlign: "center",
-                color: "#111827",
-              }}
-            >
-              Create New Session
-            </h2>
+        <div className="modal-overlay">
+          <div className="modal-box">
+            <h2 className="modal-title">Create New Session</h2>
 
-            <form
-              onSubmit={handleCreateSession}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "1rem",
-              }}
-            >
+            <form className="modal-form" onSubmit={handleCreateSession}>
               {[
                 "name",
                 "description",
@@ -295,30 +183,16 @@ export default function Navbar({
                   onChange={handleInputChange}
                   required={field === "name" || field === "dateTime"}
                   min={field === "maxParticipants" ? 1 : undefined}
-                  style={{
-                    padding: "0.75rem 1rem",
-                    borderRadius: "8px",
-                    border: "1px solid #ccc",
-                    outline: "none",
-                    fontSize: "0.95rem",
-                  }}
+                  className="modal-input"
                 />
               ))}
 
-              {/* Sport Dropdown */}
               <select
                 name="sport"
                 value={formData.sport}
                 onChange={handleInputChange}
                 required
-                style={{
-                  padding: "0.75rem 1rem",
-                  borderRadius: "8px",
-                  border: "1px solid #ccc",
-                  outline: "none",
-                  fontSize: "0.95rem",
-                  background: "#fff",
-                }}
+                className="modal-input"
               >
                 <option value="" disabled>
                   Select Sport
@@ -330,31 +204,14 @@ export default function Navbar({
                 ))}
               </select>
 
-              <div
-                style={{ display: "flex", gap: "0.5rem", marginTop: "0.5rem" }}
-              >
-                <button
-                  type="submit"
-                  style={{
-                    flex: 1,
-                    padding: "0.75rem",
-                    borderRadius: "8px",
-                    background: "#4f46e5",
-                    color: "#fff",
-                  }}
-                >
+              <div className="modal-actions">
+                <button type="submit" className="modal-btn save">
                   Create
                 </button>
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  style={{
-                    flex: 1,
-                    padding: "0.75rem",
-                    borderRadius: "8px",
-                    background: "#e5e7eb",
-                    color: "#111827",
-                  }}
+                  className="modal-btn cancel"
                 >
                   Cancel
                 </button>
@@ -364,19 +221,13 @@ export default function Navbar({
         </div>
       )}
 
-      <style jsx>{`
-        @media (max-width: 768px) {
-          .hidden-mobile {
-            display: none !important;
-          }
-          .mobile-menu-btn {
-            display: block !important;
-          }
-          .mobile-menu {
-            display: block !important;
-          }
-        }
-      `}</style>
+      <AddSportModal
+        isOpen={isAddSportModalOpen}
+        onClose={() => {
+          setIsAddSportModalOpen(false);
+          fetchSports();
+        }}
+      />
 
       {toast && (
         <Toast
@@ -386,13 +237,150 @@ export default function Navbar({
         />
       )}
 
-      <AddSportModal
-        isOpen={isAddSportModalOpen}
-        onClose={() => {
-          setIsAddSportModalOpen(false);
-          fetchSports(); // refresh sports after adding
-        }}
-      />
+      <style jsx>{`
+        .navbar-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 1rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          height: 4rem;
+        }
+
+        .navbar-brand {
+          font-family: "Playfair Display", serif;
+          font-size: 1.5rem;
+          font-weight: 700;
+        }
+
+        .navbar-links,
+        .mobile-menu-items {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
+
+        .navbar-user {
+          font-family: "Source Sans Pro", sans-serif;
+          font-size: 0.9rem;
+        }
+
+        .btn-accent {
+          font-size: 0.9rem;
+          padding: 0.5rem 1rem;
+          border-radius: 8px;
+          border: none;
+          background: #4f46e5;
+          color: #fff;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .btn-accent:hover {
+          background: #4338ca;
+        }
+
+        .mobile-menu-btn {
+          display: none;
+          background: transparent;
+          border: none;
+          color: var(--primary-foreground, #000);
+          font-size: 1.5rem;
+          cursor: pointer;
+        }
+
+        .mobile-menu {
+          background: var(--primary, #fff);
+          border-top: 1px solid var(--primary-foreground, #000);
+          padding: 1rem;
+        }
+
+        @media (max-width: 768px) {
+          .hidden-mobile {
+            display: none !important;
+          }
+          .mobile-menu-btn {
+            display: block !important;
+          }
+        }
+
+        /* Modal */
+        .modal-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 50;
+        }
+
+        .modal-box {
+          background: #fff;
+          border-radius: 12px;
+          padding: 2rem;
+          width: 400px;
+          max-width: 90%;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-title {
+          font-family: "Playfair Display", serif;
+          font-size: 1.75rem;
+          margin-bottom: 1.5rem;
+          text-align: center;
+          color: #111827;
+        }
+
+        .modal-form {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .modal-input {
+          padding: 0.75rem 1rem;
+          border-radius: 8px;
+          border: 1px solid #ccc;
+          font-size: 0.95rem;
+          outline: none;
+        }
+
+        .modal-actions {
+          display: flex;
+          gap: 0.5rem;
+          margin-top: 0.5rem;
+        }
+
+        .modal-btn {
+          flex: 1;
+          padding: 0.75rem;
+          border-radius: 8px;
+          font-weight: 600;
+          border: none;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .modal-btn.save {
+          background: #4f46e5;
+          color: #fff;
+        }
+
+        .modal-btn.save:hover {
+          background: #4338ca;
+        }
+
+        .modal-btn.cancel {
+          background: #e5e7eb;
+          color: #111827;
+        }
+
+        .modal-btn.cancel:hover {
+          background: #d1d5db;
+        }
+      `}</style>
     </nav>
   );
 }

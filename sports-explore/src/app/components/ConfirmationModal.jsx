@@ -19,90 +19,112 @@ export default function ConfirmationModal({
   if (!isOpen || !mounted) return null;
 
   const actionText = actionType === "join" ? "Join" : "Leave";
-  const actionColor = actionType === "join" ? "#10b981" : "#ef4444";
+  const actionClass = actionType === "join" ? "confirm" : "leave";
 
   return createPortal(
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        background: "rgba(0,0,0,0.5)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        zIndex: 1000,
-      }}
-    >
-      <div
-        style={{
-          background: "#fff",
-          borderRadius: "12px",
-          padding: "2rem",
-          width: "400px",
-          maxWidth: "90%",
-          boxShadow: "0 10px 25px rgba(0,0,0,0.2)",
-          textAlign: "center",
-        }}
-      >
-        <h2
-          style={{
-            fontFamily: "Playfair Display, serif",
-            fontSize: "1.5rem",
-            marginBottom: "1rem",
-            color: "#111827",
-          }}
-        >
-          {actionText} Session
-        </h2>
+    <>
+      <div className="modal-overlay">
+        <div className="modal-box">
+          <h2 className="modal-title">{actionText} Session</h2>
 
-        <p
-          style={{
-            fontFamily: "Source Sans Pro, sans-serif",
-            fontSize: "1rem",
-            marginBottom: "1.5rem",
-            color: "#374151",
-          }}
-        >
-          Are you sure you want to {actionText.toLowerCase()}{" "}
-          <strong>{sessionName}</strong>?
-        </p>
+          <p className="modal-text">
+            Are you sure you want to {actionText.toLowerCase()}{" "}
+            <strong>{sessionName}</strong>?
+          </p>
 
-        <div style={{ display: "flex", gap: "0.5rem" }}>
-          <button
-            onClick={onConfirm}
-            style={{
-              flex: 1,
-              padding: "0.75rem",
-              borderRadius: "8px",
-              background: actionColor,
-              color: "#fff",
-              fontWeight: "600",
-              border: "none",
-              cursor: "pointer",
-              transition: "background 0.2s ease",
-            }}
-          >
-            Yes, {actionText}
-          </button>
-          <button
-            onClick={onClose}
-            style={{
-              flex: 1,
-              padding: "0.75rem",
-              borderRadius: "8px",
-              background: "#e5e7eb",
-              color: "#111827",
-              fontWeight: "600",
-              border: "none",
-              cursor: "pointer",
-              transition: "background 0.2s ease",
-            }}
-          >
-            Cancel
-          </button>
+          <div className="modal-actions">
+            <button onClick={onConfirm} className={`modal-btn ${actionClass}`}>
+              Yes, {actionText}
+            </button>
+            <button onClick={onClose} className="modal-btn cancel">
+              Cancel
+            </button>
+          </div>
         </div>
       </div>
-    </div>,
+
+      <style jsx>{`
+        .modal-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+        }
+
+        .modal-box {
+          background: #fff;
+          border-radius: 12px;
+          padding: 2rem;
+          width: 400px;
+          max-width: 90%;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+          text-align: center;
+          transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .modal-title {
+          font-family: "Playfair Display", serif;
+          font-size: 1.5rem;
+          margin-bottom: 1rem;
+          color: #111827;
+        }
+
+        .modal-text {
+          font-family: "Source Sans Pro", sans-serif;
+          font-size: 1rem;
+          margin-bottom: 1.5rem;
+          color: #374151;
+        }
+
+        .modal-actions {
+          display: flex;
+          gap: 0.5rem;
+        }
+
+        .modal-btn {
+          flex: 1;
+          padding: 0.75rem;
+          border-radius: 8px;
+          font-weight: 600;
+          border: none;
+          cursor: pointer;
+          transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .modal-btn.confirm {
+          background: #10b981;
+          color: #fff;
+        }
+
+        .modal-btn.confirm:hover {
+          background: #059669;
+          transform: translateY(-1px);
+        }
+
+        .modal-btn.leave {
+          background: #ef4444;
+          color: #fff;
+        }
+
+        .modal-btn.leave:hover {
+          background: #dc2626;
+          transform: translateY(-1px);
+        }
+
+        .modal-btn.cancel {
+          background: #e5e7eb;
+          color: #111827;
+        }
+
+        .modal-btn.cancel:hover {
+          background: #d1d5db;
+          transform: translateY(-1px);
+        }
+      `}</style>
+    </>,
     document.body
   );
 }

@@ -4,106 +4,112 @@
 /* Base styles */
 * {
   box-sizing: border-box;
-}
-
-/* Reset default browser spacing */
-html,
-body {
   margin: 0;
   padding: 0;
 }
 
+html,
 body {
-  background-color: #ffffff; /* background */
-  color: #475569; /* foreground */
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: linear-gradient(135deg, #f9fafb, #f3f4f6); /* light gradient */
+  color: #334155; /* text color */
   font-family: "Source Sans Pro", sans-serif;
+  line-height: 1.6;
 }
 
 /* Dashboard Grid */
 .dashboard-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
+  padding: 1.5rem;
 }
 
 @media (max-width: 768px) {
   .dashboard-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
-  }
-}
-
-@media (max-width: 300px) {
-  .dashboard-grid {
-    gap: 0.75rem;
+    padding: 1rem;
   }
 }
 
 /* Session Card */
 .session-card {
-  background: #ecfeff; /* card */
-  color: #374151; /* card-foreground */
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: #ffffff;
+  color: #374151;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 1.25rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .session-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
 }
 
 /* Navbar */
 .navbar {
-  background: #164e63; /* primary */
-  color: #ffffff; /* primary-foreground */
-  border: none;
+  background: #164e63;
+  color: #ffffff;
+  padding: 1rem 2rem;
   position: sticky;
-  top: -100px;
+  top: 0;
   z-index: 100;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 /* Primary Button */
 .btn-primary {
-  background: #164e63; /* primary */
-  color: #ffffff; /* primary-foreground */
+  background: #164e63;
+  color: #ffffff;
   border: none;
   border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.2rem;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  font-weight: 600;
+  transition: background-color 0.25s ease, transform 0.2s ease;
 }
 
 .btn-primary:hover {
-  background: #d97706; /* secondary */
+  background: #0d3b4d;
+  transform: scale(1.05);
 }
 
 /* Accent Button */
 .btn-accent {
-  background: #f59e0b; /* accent */
-  color: #ffffff; /* accent-foreground */
+  background: #f59e0b;
+  color: #ffffff;
   border: none;
   border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.2rem;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  font-weight: 600;
+  transition: background-color 0.25s ease, transform 0.2s ease;
 }
 
 .btn-accent:hover {
-  opacity: 0.9;
+  background: #d97706;
+  transform: scale(1.05);
 }
 
 /* Destructive Button */
 .btn-destructive {
-  background: #dc2626; /* destructive */
-  color: #ffffff; /* destructive-foreground */
+  background: #dc2626;
+  color: #ffffff;
   border: none;
   border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.2rem;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  font-weight: 600;
+  transition: opacity 0.25s ease, transform 0.2s ease;
 }
 
 .btn-destructive:hover {
   opacity: 0.9;
+  transform: scale(1.05);
 }

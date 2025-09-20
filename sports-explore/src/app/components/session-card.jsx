@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import ConfirmationModal from "../components/ConfirmationModal"; // <-- new modal for join/leave
+import ConfirmationModal from "../components/ConfirmationModal";
 
 export default function SessionCard({
   session,
@@ -17,11 +17,8 @@ export default function SessionCard({
 
   const handleConfirm = async () => {
     try {
-      if (modalAction === "join") {
-        await onJoin?.(session);
-      } else if (modalAction === "leave") {
-        await onLeave?.(session);
-      }
+      if (modalAction === "join") await onJoin?.(session);
+      else if (modalAction === "leave") await onLeave?.(session);
     } finally {
       setModalOpen(false);
     }
@@ -29,44 +26,17 @@ export default function SessionCard({
 
   const getActionButtons = () => {
     if (type === "createdByMe") {
-      return (
-        <div
-          style={{
-            backgroundColor: "#3b82f6", // blue-500
-            color: "#ffffff",
-            padding: "0.5rem 1rem",
-            borderRadius: "0.5rem",
-            fontWeight: "600",
-            textAlign: "center",
-            cursor: "default",
-          }}
-        >
-          Session created by you
-        </div>
-      );
+      return <div className="badge blue">Session created by you</div>;
     }
 
     if (type === "alreadyJoined") {
-      return (
-        <div
-          style={{
-            padding: "0.5rem 1rem",
-            borderRadius: "9999px",
-            backgroundColor: "#10b981", // green-500
-            color: "#fff",
-            fontWeight: "600",
-            fontSize: "0.875rem",
-            textAlign: "center",
-          }}
-        >
-          Already joined
-        </div>
-      );
+      return <div className="badge green">Already joined</div>;
     }
+
     switch (type) {
       case "created":
         return (
-          <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+          <div className="action-buttons">
             <button className="btn-primary" onClick={() => onEdit?.(session)}>
               Edit
             </button>
@@ -78,7 +48,6 @@ export default function SessionCard({
             </button>
           </div>
         );
-
       case "joined":
         return (
           <button
@@ -91,7 +60,6 @@ export default function SessionCard({
             Leave
           </button>
         );
-
       case "available":
       default:
         return (
@@ -109,139 +77,35 @@ export default function SessionCard({
   };
 
   return (
-    <div className="session-card" style={{ padding: "1.5rem" }}>
-      <div style={{ marginBottom: "1rem" }}>
-        <h3
-          style={{
-            fontFamily: "Playfair Display, serif",
-            fontSize: "1.25rem",
-            fontWeight: "700",
-            margin: "0 0 0.5rem 0",
-            color: "var(--card-foreground)",
-          }}
-        >
-          {session.name}
-        </h3>
-        <p
-          style={{
-            fontFamily: "Source Sans Pro, sans-serif",
-            fontSize: "0.9rem",
-            color: "var(--muted-foreground)",
-            margin: "0 0 1rem 0",
-          }}
-        >
-          {session.description}
-        </p>
+    <div className="session-card">
+      <div className="session-header">
+        <h3>{session.name}</h3>
+        <p>{session.description}</p>
       </div>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
-          gap: "1rem",
-          marginBottom: "1.5rem",
-        }}
-      >
+      <div className="session-details">
         <div>
-          <div
-            style={{
-              fontSize: "0.75rem",
-              color: "var(--muted-foreground)",
-              textTransform: "uppercase",
-              marginBottom: "0.25rem",
-            }}
-          >
-            Sport
-          </div>
-          <div
-            style={{
-              fontSize: "0.9rem",
-              fontWeight: "600",
-              color: "var(--card-foreground)",
-            }}
-          >
-            {session.sport}
-          </div>
+          <div className="detail-label">Sport</div>
+          <div className="detail-value">{session.sport}</div>
         </div>
-
         <div>
-          <div
-            style={{
-              fontSize: "0.75rem",
-              color: "var(--muted-foreground)",
-              textTransform: "uppercase",
-              marginBottom: "0.25rem",
-            }}
-          >
-            Date & Time
-          </div>
-          <div
-            style={{
-              fontSize: "0.9rem",
-              fontWeight: "600",
-              color: "var(--card-foreground)",
-            }}
-          >
-            {session.dateTime}
-          </div>
+          <div className="detail-label">Date & Time</div>
+          <div className="detail-value">{session.dateTime}</div>
         </div>
-
         <div>
-          <div
-            style={{
-              fontSize: "0.75rem",
-              color: "var(--muted-foreground)",
-              textTransform: "uppercase",
-              marginBottom: "0.25rem",
-            }}
-          >
-            Participants
-          </div>
-          <div
-            style={{
-              fontSize: "0.9rem",
-              fontWeight: "600",
-              color: "var(--card-foreground)",
-            }}
-          >
+          <div className="detail-label">Participants</div>
+          <div className="detail-value">
             {session.participants?.length || 0}/{session.maxParticipants}
           </div>
         </div>
-
         <div>
-          <div
-            style={{
-              fontSize: "0.75rem",
-              color: "var(--muted-foreground)",
-              textTransform: "uppercase",
-              marginBottom: "0.25rem",
-            }}
-          >
-            Location
-          </div>
-          <div
-            style={{
-              fontSize: "0.9rem",
-              fontWeight: "600",
-              color: "var(--card-foreground)",
-            }}
-          >
-            {session.location}
-          </div>
+          <div className="detail-label">Location</div>
+          <div className="detail-value">{session.location}</div>
         </div>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          alignItems: "center",
-        }}
-      >
-        {getActionButtons()}
-      </div>
+      <div className="session-actions">{getActionButtons()}</div>
 
-      {/* Confirmation Modal */}
       <ConfirmationModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
@@ -249,6 +113,118 @@ export default function SessionCard({
         actionType={modalAction}
         sessionName={session.name}
       />
+
+      <style jsx>{`
+        .session-card {
+          padding: 1.5rem;
+          border: 1px solid #e5e7eb;
+          border-radius: 12px;
+          margin-bottom: 1.5rem;
+          background: #fff;
+        }
+
+        .session-header h3 {
+          font-family: "Playfair Display", serif;
+          font-size: 1.25rem;
+          font-weight: 700;
+          margin: 0 0 0.5rem 0;
+          color: #111827;
+        }
+
+        .session-header p {
+          font-family: "Source Sans Pro", sans-serif;
+          font-size: 0.9rem;
+          color: #6b7280;
+          margin: 0 0 1rem 0;
+        }
+
+        .session-details {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+          gap: 1rem;
+          margin-bottom: 1.5rem;
+        }
+
+        .detail-label {
+          font-size: 0.75rem;
+          color: #6b7280;
+          text-transform: uppercase;
+          margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+          font-size: 0.9rem;
+          font-weight: 600;
+          color: #111827;
+        }
+
+        .session-actions {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+        }
+
+        .action-buttons {
+          display: flex;
+          gap: 0.5rem;
+          flex-wrap: wrap;
+        }
+
+        .badge {
+          padding: 0.5rem 1rem;
+          border-radius: 0.5rem;
+          font-weight: 600;
+          text-align: center;
+        }
+
+        .badge.blue {
+          background-color: #3b82f6;
+          color: #fff;
+        }
+
+        .badge.green {
+          background-color: #10b981;
+          color: #fff;
+        }
+
+        .btn-primary,
+        .btn-accent,
+        .btn-destructive {
+          padding: 0.5rem 1rem;
+          border-radius: 0.5rem;
+          border: none;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+          background: #3b82f6;
+          color: #fff;
+        }
+
+        .btn-primary:hover {
+          background: #2563eb;
+        }
+
+        .btn-accent {
+          background: #4f46e5;
+          color: #fff;
+        }
+
+        .btn-accent:hover {
+          background: #4338ca;
+        }
+
+        .btn-destructive {
+          background: #ef4444;
+          color: #fff;
+        }
+
+        .btn-destructive:hover {
+          background: #dc2626;
+        }
+      `}</style>
     </div>
   );
 }
