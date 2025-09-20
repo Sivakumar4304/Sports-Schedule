@@ -1,6 +1,6 @@
 # Sports Schedule Management App
 
-A simple web application to manage sports sessions, allowing users to create, join, and leave sessions. Admins can also add new sports to the system.
+A web application to manage sports sessions, allowing users to create, join, and leave sessions. Admins can also add new sports to the system.
 
 ## Features
 
@@ -13,8 +13,8 @@ A simple web application to manage sports sessions, allowing users to create, jo
   - View available sessions
   - Join sessions
   - Leave joined sessions
-- **Responsive Design**: Works on both desktop and mobile devices
-- **Real-time Updates**: Session details and participants are updated dynamically
+- **Responsive Design**: Works on desktop and mobile
+- **Real-time Updates**: Session details and participants update dynamically
 
 ## Tech Stack
 
@@ -24,7 +24,9 @@ A simple web application to manage sports sessions, allowing users to create, jo
 - **Authentication**: Cookie-based sessions
 - **Version Control**: Git, GitHub
 
-## Folder Structure                                                                                                                                            Frontend/
+## Folder Structure
+
+Frontend/
 ├─ public/ # Static assets
 ├─ src/app/ # Next.js app folder
 │ ├─ components/ # React components
@@ -33,12 +35,19 @@ A simple web application to manage sports sessions, allowing users to create, jo
 │ ├─ signup/ # Signup page
 │ └─ [id]/dashboard/ # Dashboard page
 ├─ package.json
-└─ README.md                                                                                                                                                      
+└─ README.md
+
+
+
 ## How to Run
 
 1. Navigate to the frontend folder:
-cd Frontend
-     2.Install dependencies:                                                                                                                                    npm install 
-        3.Run the development server:                                                                                                                           npm run dev 
-                                         
 
+```bash
+cd Frontend
+
+2.Install dependencies:
+npm install
+3.Run the development server:
+npm run dev
+4.http://localhost:3000
